@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JournalApp.AIAgent\JournalApp.AIAgent.csproj" />
+    <ProjectReference Include="..\JournalApp.ApiService\JournalApp.ApiService.csproj" />
+    <ProjectReference Include="..\JournalApp.ServiceDefaults\JournalApp.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\JournalApp.Shared\JournalApp.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.5.0" />
+  </ItemGroup>
+
+</Project>

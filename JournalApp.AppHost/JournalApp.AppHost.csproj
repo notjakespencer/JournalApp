@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>768d106c-ebf6-4926-92b8-d25b8590b96e</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JournalApp.AIAgent\JournalApp.AIAgent.csproj" />
+    <ProjectReference Include="..\JournalApp.ApiService\JournalApp.ApiService.csproj" />
+    <ProjectReference Include="..\JournalApp.Mobile\JournalApp.Mobile.csproj" />
+    <ProjectReference Include="..\JournalApp.ServiceDefaults\JournalApp.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\JournalApp.Shared\JournalApp.Shared.csproj" />
+    <ProjectReference Include="..\JournalApp.Web\JournalApp.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.5.0" />
+  </ItemGroup>
+
+</Project>

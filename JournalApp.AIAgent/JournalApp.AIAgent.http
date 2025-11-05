@@ -1,0 +1,6 @@
+@JournalApp.AIAgent_HostAddress = http://localhost:5024
+
+GET {{JournalApp.AIAgent_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
