@@ -1,0 +1,202 @@
+Use Case Descriptions
+Authentication
+UC1: Login/Authenticate
+
+    Description: User authenticates with the application using Microsoft Entra ID
+    Actor: User
+    Preconditions: User has valid credentials
+    Postconditions: User is authenticated and has access token
+    Flow:
+        User opens the MAUI mobile app
+        System redirects to Microsoft Entra ID login
+        User provides credentials
+        System validates credentials
+        User receives authentication token
+        User gains access to the app
+
+UC2: Logout
+
+    Description: User logs out of the application
+    Actor: User
+    Preconditions: User is logged in
+    Postconditions: User session is terminated
+    Flow:
+        User selects logout option
+        System invalidates authentication token
+        User is redirected to login screen
+
+Daily Journaling
+UC3: View Daily Prompt
+
+    Description: User views the AI-generated personalized daily journaling prompt
+    Actor: User
+    Preconditions: User is authenticated
+    Postconditions: Daily prompt is displayed
+    Flow:
+        User requests daily prompt
+        System checks if user has already journaled today
+        AI Agent analyzes past entries and mood history
+        AI Agent generates personalized prompt
+        System displays prompt to user
+
+UC4: Write Journal Entry
+
+    Description: User writes their journal entry response to the daily prompt
+    Actor: User
+    Preconditions: User has viewed daily prompt and hasn't written entry for today
+    Postconditions: Journal entry draft is created
+    Flow:
+        User begins typing response
+        System starts 2-minute timer
+        User writes their thoughts
+        Timer displays remaining time
+        Entry is auto-saved during writing
+
+UC5: Select Mood
+
+    Description: User selects their current mood using emoji faces
+    Actor: User
+    Preconditions: User is writing or has written journal entry
+    Postconditions: Mood is associated with journal entry
+    Flow:
+        User views mood selection interface (emoji faces)
+        User selects one mood emoji
+        System associates mood with current entry
+
+UC6: Submit Journal Entry
+
+    Description: User submits their completed journal entry with mood
+    Actor: User
+    Preconditions: User has written entry and selected mood
+    Postconditions: Entry is permanently saved and cannot be edited
+    Flow:
+        User clicks submit button
+        System validates entry completeness
+        System saves entry to Azure Storage
+        Entry becomes immutable (locked)
+        Experience points are awarded
+        Daily streak is updated
+        App prevents additional entries for the day
+
+Journal History
+UC7: View Calendar
+
+    Description: User views calendar with color-coded entries based on mood
+    Actor: User
+    Preconditions: User is authenticated
+    Postconditions: Calendar is displayed with mood-colored days
+    Flow:
+        User navigates to calendar view
+        System retrieves all past entries
+        System displays calendar with color-coded days
+        Each day shows mood color if entry exists
+
+UC8: View Past Entries
+
+    Description: User views read-only past journal entries
+    Actor: User
+    Preconditions: User is viewing calendar
+    Postconditions: Past entry is displayed
+    Flow:
+        User selects a day from calendar
+        System retrieves journal entry for that day
+        System displays prompt and response (read-only)
+        System shows mood and timestamp
+
+UC9: View Mood History
+
+    Description: User reviews their mood patterns over time
+    Actor: User
+    Preconditions: User is viewing calendar
+    Postconditions: Mood trends are visualized
+    Flow:
+        User accesses mood history view
+        System retrieves mood data from all entries
+        System displays mood trends and patterns
+        User can see emotional journey over time
+
+Progress & Gamification
+UC10: View Experience Points
+
+    Description: User checks their accumulated experience points
+    Actor: User
+    Preconditions: User is authenticated
+    Postconditions: Experience points are displayed
+    Flow:
+        User views experience points display
+        System retrieves current XP from user profile
+        System shows total points earned
+        User sees progress towards next milestone
+
+UC11: View Daily Streak
+
+    Description: User monitors their consecutive days of journaling
+    Actor: User
+    Preconditions: User is authenticated
+    Postconditions: Streak information is displayed
+    Flow:
+        User views streak display
+        System calculates consecutive journaling days
+        System shows current streak count
+        User sees motivation to maintain streak
+
+UC12: Track Writing Progress
+
+    Description: User observes their writing duration and progress during the 2-minute timer
+    Actor: User
+    Preconditions: User is writing journal entry
+    Postconditions: Progress is visualized in real-time
+    Flow:
+        Timer starts when user begins writing
+        System displays countdown (2 minutes)
+        System shows writing progress indicator
+        User sees time remaining
+        Timer completes after 2 minutes
+
+Use Case Relationships
+Include Relationships (mandatory)
+
+    View Daily Prompt includes Login/Authenticate: User must be authenticated to view prompts
+    Write Journal Entry includes View Daily Prompt: User must see prompt before writing
+    Submit Journal Entry includes Write Journal Entry: User must write before submitting
+    Submit Journal Entry includes Select Mood: User must select mood before submitting
+    Submit Journal Entry includes View Experience Points: Submitting awards XP automatically
+    Submit Journal Entry includes View Daily Streak: Submitting updates streak automatically
+    View Past Entries includes View Calendar: User navigates through calendar to view entries
+    View Mood History includes View Calendar: Mood history is accessed through calendar
+
+Extend Relationships (optional/conditional)
+
+None currently defined. All relationships in this system are mandatory (includes).
+System Constraints
+
+    One Entry Per Day: Users can only create one journal entry per day
+    Immutable Entries: Once submitted, entries cannot be edited or deleted
+    Timed Writing: Writing session is limited to 2 minutes
+    Authentication Required: All use cases require valid authentication
+    Mood Required: Mood selection is mandatory for entry submission
+    Read-Only History: Past entries can only be viewed, not modified
+
+Actors Summary
+Primary Actor: User
+
+    Daily journaler who uses the app for self-reflection
+    Motivated by gamification (XP, streaks)
+    Seeks personalized prompts and mood tracking
+    Values privacy and data security
+
+Secondary Actors (System-level)
+
+    Microsoft Entra ID: Handles authentication
+    AI Agent Service: Generates personalized prompts
+    Azure Storage: Persists journal data
+    Timer Service: Manages 2-minute writing sessions
+
+Benefits of Use Case Model
+
+    User-Centric Design: Focuses on what users want to accomplish
+    Clear Requirements: Each use case defines specific functionality
+    Relationship Mapping: Shows dependencies between features
+    Validation Tool: Can be used to verify system implementation
+    Communication: Helps stakeholders understand app functionality
+    Testing Guide: Each use case can be converted to test scenarios
