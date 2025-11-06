@@ -1,7 +1,85 @@
-﻿@page "/"
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using JournalApp.Shared.Models
 
-<PageTitle>Home</PageTitle>
+@page "/"
+@rendermode InteractiveServer
+<PageTitle>Momentum</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="center-content">
+    <h1 class="h1">MOMEMTUM</h1>
+    <p>Your Two Minute Daily Journal</p>
+    <TimerOverlay @ref="timerRef" OnTimerComplete="AutoSubmit" />
 
-Welcome to your new app.
+    @if (!Submitted)
+    {
+        <InputTextArea @bind-Value="JournalEntryText"
+                       class="journal-textbox"
+                       placeholder="Start typing..."
+                       @oninput="HandleInput" />
+
+        <button class="btn btn-primary" @onclick="OnSubmitAsync">Submit</button>
+    }
+    else if (!MoodSelected)
+    {
+        <div>
+            <span class="success-inline">Submission Successful. See you again Tomorrow</span>
+            <MoodSelector MoodSelected="OnMoodSelected" />
+        </div>
+    }
+    else
+    {
+        <div>
+            <span class="success-inline">Thank you! Your entry and mood have been saved.</span>
+            <div class="selected-mood">You selected: @SelectedMood.Name @SelectedMood.Emoji</div>
+        </div>
+    }
+</div>
+
+@code {
+    private string JournalEntryText { get; set; } = string.Empty;
+    private bool Submitted = false;
+    private bool TimerStarted = false;
+    private bool MoodSelected = false;
+    private TimerOverlay? timerRef;
+
+    private MoodOption? SelectedMood;
+
+    // Store journal entries by date
+    private Dictionary<DateTime, JournalEntry> Entries = new();
+
+    private async Task OnSubmitAsync()
+    {
+        Submitted = true;
+    }
+
+    private async Task AutoSubmit()
+    {
+        if (!Submitted)
+        {
+            await OnSubmitAsync();
+        }
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        if (!TimerStarted)
+        {
+            timerRef?.StartTimer();
+            TimerStarted = true;
+        }
+    }
+
+    private void OnMoodSelected(MoodOption mood)
+    {
+        SelectedMood = mood;
+        MoodSelected = true;
+        // Save entry for today
+        var today = DateTime.Today;
+        Entries[today] = new JournalEntry
+        {
+            Date = today,
+            Text = JournalEntryText,
+            Mood = mood.Name
+        };
+    }
+}

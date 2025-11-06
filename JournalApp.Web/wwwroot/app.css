@@ -1,27 +1,59 @@
-html, body {
+:root {
+    --background-color: #0E1116;
+    --surface-color: #1a1d23;
+    --primary-text-color: #f1f0eb;
+    --secondary-text-color: #9fa6b2;
+    --accent-color: cdae5b;
+    --highlight-color: #4a6fa5;
+    --border-color: #2a2f38;
+    --success-color: #6fa47c;
+}
+
+html {
+}
+
+body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--background-color);
+    color: var(--accent-color);
 }
 
 a, .btn-link {
-    color: #006bb7;
+    color: var(--accent-color);
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+.btn, .btn-primary {
+    color: var(--primary-text-color);
+    background-color: var(--highlight-color);
+    border-color: var(--border-color);
+    margin: 15px;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+    .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
 
 .content {
     padding-top: 1.1rem;
+    background: var(--surface-color);
+    color: var(--primary-text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
 }
 
 h1:focus {
     outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-text-color);
+}
+
+.h1 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: #cdae5b;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -33,7 +65,19 @@ h1:focus {
 }
 
 .validation-message {
-    color: #e50820;
+    color: var(--success-color);
+}
+
+.success {
+    color: var(--success-color);
+}
+
+.secondary-text {
+    color: var(--secondary-text-color);
+}
+
+.border-muted {
+    border-color: var(--border-color);
 }
 
 .blazor-error-boundary {
@@ -53,4 +97,153 @@ h1:focus {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    background: var(--surface-color);
+    color: var(--primary-text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.timer-box {
+    background: var(--surface-color);
+    padding: 5px;
+    margin: 10px;
+    color: var(--primary-text-color);
+    border: 3px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.timer-overlay {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-scrollable {
+    background-color: var(--background-color);
+}
+
+.container-fluid {
+    background-color: var(--background-color);
+}
+
+.px-4 {
+    background-color: var(--background-color);
+}
+
+.journal-textbox {
+    width: 600px;
+    height: 300px;
+    padding: 0.5rem;
+    margin: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 3px solid #2a2f38;
+    background: #1a1d23;
+    color: #f1f0eb;
+}
+
+.success-inline {
+    display: inline-block;
+    color: #26b050;
+    padding: 0.5rem, 1.5rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.mood-selector {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .mood-selector span {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        color: #F1F0EB;
+    }
+
+.mood-selector-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.mood-btn {
+    font-size: 2rem;
+    margin: 0 0.5rem;
+    background: transparent;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+    .mood-btn:hover {
+        transform: scale(1.2);
+        background: transparent;
+        border: none;
+    }
+
+.selected-mood {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #CDAE5B;
+}
+
+.calendar-container {
+    margin: 2rem auto;
+    max-width: 500px;
+    text-align: center;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1A1D23;
+    color: #F1F0EB;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+    .calendar-table th, .calendar-table td {
+        padding: 0.75rem;
+        border: 1px solid #2A2F38;
+        width: 14.28%;
+        height: 48px;
+        text-align: center;
+    }
+
+    .calendar-table th {
+        background: #4A6FA5;
+        color: #F1F0EB;
+        font-weight: bold;
+    }
+
+.calendar-cell {
+    background: #1A1D23;
+    color: #F1F0EB;
+    border-radius: 6px;
+}
+
+.empty-cell {
+    background: transparent;
+    border: none;
 }

@@ -1,0 +1,47 @@
+﻿<div class="timer-overlay">
+    <div class="timer-display">@TimeLeftDisplay</div>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnTimerComplete { get; set; }
+
+    private int TimeLeft = 120;
+    private bool IsRunning = false;
+    private System.Threading.Timer? _timer;
+
+    private string TimeLeftDisplay => $"{TimeLeft / 60:D2}:{TimeLeft % 60:D2}";
+
+    public void StartTimer()
+    {
+        if (IsRunning) return;
+        IsRunning = true;
+        _timer = new System.Threading.Timer(async _ =>
+        {
+            if (TimeLeft > 0)
+            {
+                TimeLeft--;
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                _timer?.Dispose();
+                IsRunning = false;
+                await InvokeAsync(StateHasChanged);
+                await OnTimerComplete.InvokeAsync();
+            }
+        }, null, 1000, 1000);
+    }
+
+    public void ResetTimer()
+    {
+        _timer?.Dispose();
+        TimeLeft = 120;
+        IsRunning = false;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

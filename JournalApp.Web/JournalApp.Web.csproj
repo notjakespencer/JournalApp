@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JournalApp.AIAgent\JournalApp.AIAgent.csproj" />
-    <ProjectReference Include="..\JournalApp.ApiService\JournalApp.ApiService.csproj" />
+   <!-- <ProjectReference Include="..\JournalApp.AIAgent\JournalApp.AIAgent.csproj" /> -->
+   <!-- <ProjectReference Include="..\JournalApp.ApiService\JournalApp.ApiService.csproj" /> -->
     <ProjectReference Include="..\JournalApp.ServiceDefaults\JournalApp.ServiceDefaults.csproj" />
     <ProjectReference Include="..\JournalApp.Shared\JournalApp.Shared.csproj" />
   </ItemGroup>

@@ -1,0 +1,28 @@
+@* Mood selection UI (emoji faces) *@
+<div class="mood-selector">
+    <h3>Select Your Mood</h3>
+    <div>
+        @foreach (var mood in Moods)
+    {
+  <button @onclick="() => SelectMood(mood)" class="mood-btn">@mood.Emoji</button>
+   }
+    </div>
+</div>
+
+@code {
+    private List<MoodOption> Moods = new()
+    {
+   new MoodOption("??", "Happy"),
+   new MoodOption("??", "Neutral"),
+   new MoodOption("??", "Sad"),
+    new MoodOption("??", "Angry"),
+    new MoodOption("??", "Surprised")
+    };
+
+    private void SelectMood(MoodOption mood)
+    {
+    // TODO: Save selected mood with journal entry
+    }
+
+    public record MoodOption(string Emoji, string Name);
+}

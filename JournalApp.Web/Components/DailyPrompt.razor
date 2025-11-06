@@ -1,0 +1,38 @@
+@* Displays today's AI-generated prompt and journal entry form *@
+<div class="daily-prompt">
+    <h2>Today's Prompt</h2>
+    <!-- TODO: Bind to prompt from backend/AI agent -->
+    <p>@PromptText</p>
+    <EditForm Model="JournalEntryModel" OnValidSubmit="OnSubmit">
+        <InputTextArea Rows="6" Placeholder="Write your response..." />
+  <!-- TODO: Add timer/progress bar -->
+  <button type="submit">Submit</button>
+    </EditForm>
+<!-- TODO: Show mood selector after writing -->
+</div>
+
+@code {
+    private string PromptText = "[Prompt goes here]";
+    private JournalEntryModelLocal JournalEntryModel = new();
+    private TimerOverlay? timerRef;
+    private bool timerStarted = false;
+
+    private void OnInput(ChangeEventArgs e)
+    {
+        if (!timerStarted)
+        {
+            timerRef?.StartTimer();
+            timerStarted = true;
+        }
+    }    
+
+    private void OnSubmit()
+    {
+        // TODO: Submit journal entry to backend
+    }
+
+    private class JournalEntryModelLocal
+    {
+        public string EntryText { get; set; } = string.Empty;
+    }
+}
